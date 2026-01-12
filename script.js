@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	// Apply function to new elements
 	async function doWork() {
-	  	const element = await waitForElementToExist('# expected-element');
+	  	const element = await waitForElementToExist('#expected-element');
 	  	var phone_inputs = document.querySelectorAll('input.phone');
 	 	for (let elem of phone_inputs) {
 	 		for (let ev of ['input', 'blur', 'focus', 'click']) {
