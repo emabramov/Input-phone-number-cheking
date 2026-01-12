@@ -21,11 +21,44 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	}
 
-	var phone_inputs = document.querySelectorAll('input_phone');
+	var phone_inputs = document.querySelectorAll('input.phone');
 	
  	for (let elem of phone_inputs) {
  		for (let ev of ['input', 'blur', 'focus', 'click']) {
  			elem.addEventListener(ev, eventCallback);
  		}
-  }
+  	}
+
+	// Wait for element in body
+	function waitForElementToExist(selector) {
+	  return new Promise(resolve => {
+	    if (document.querySelector(selector)) {
+	      return resolve(document.querySelector(selector));
+	    }
+	
+	    const observer = new MutationObserver(() => {
+	      if (document.querySelector(selector)) {
+	        resolve(document.querySelector(selector));
+	        observer.disconnect();
+	      }
+	    });
+	
+	    observer.observe(document.body, {
+	      subtree: true,
+	      childList: true,
+	    });
+	  });
+	}
+
+	// Apply function to new elements
+	async function doWork() {
+	  	const element = await waitForElementToExist('# expected-element');
+	  	var phone_inputs = document.querySelectorAll('input.phone');
+	 	for (let elem of phone_inputs) {
+	 		for (let ev of ['input', 'blur', 'focus', 'click']) {
+	 			elem.addEventListener(ev, eventCallback);
+	 		}
+	    }
+	}
+	doWork();
 });
