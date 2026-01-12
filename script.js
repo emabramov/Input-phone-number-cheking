@@ -61,4 +61,20 @@ document.addEventListener("DOMContentLoaded", function() {
 	    }
 	}
 	doWork();
+
+	// Listener of style changes and apply function
+	var observer = new MutationObserver(function(mutations) {
+		mutations.forEach(function(mutationRecord) {
+			var phone_inputs = document.querySelectorAll('[name="New Form"] input#form-field-email_554');
+			for (let elem of phone_inputs) {
+				for (let ev of ['input', 'blur', 'focus', 'click']) {
+					elem.addEventListener(ev, eventCallback);
+				}
+			}
+		});    
+	});
+
+	// Init observer
+	var target = document.getElementById('elementor-popup-modal-5625');
+	observer.observe(target, { attributes : true, attributeFilter : ['style'] });
 });
